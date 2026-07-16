@@ -1,0 +1,180 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 56px;
+  background-color: var(--bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.left, .center, .right {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  gap: 16px;
+}
+
+.center {
+  flex: 1;
+  max-width: 720px;
+  gap: 12px;
+  margin: 0 40px;
+}
+
+.right {
+  gap: 8px;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s ease;
+}
+
+.iconButton:hover {
+  background-color: var(--bg-hover);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.searchForm {
+  display: flex;
+  flex: 1;
+  height: 40px;
+}
+
+.searchInputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: 40px 0 0 40px;
+  padding: 0 16px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.searchInputWrapper:focus-within {
+  border-color: #1c62b9; /* A subtle blue highlight like YT */
+}
+
+.searchInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 16px;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--text-secondary);
+}
+
+.keyboardShortcut {
+  position: absolute;
+  right: 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  background-color: var(--bg-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.searchButton {
+  width: 64px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0 40px 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s ease;
+}
+
+.searchButton:hover {
+  background-color: var(--bg-hover);
+}
+
+.micButton {
+  background-color: var(--bg-secondary);
+}
+
+.profileButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 8px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.signInButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #3ea6ff;
+  border: 1px solid #263850;
+  background-color: transparent;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s, border-color 0.2s;
+  text-decoration: none;
+}
+
+.signInButton:hover {
+  background-color: rgba(62, 166, 255, 0.2);
+  border-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .center {
+    display: none;
+  }
+  .left {
+    gap: 8px;
+  }
+  .logoText {
+    display: none;
+  }
+  .right {
+    gap: 4px;
+  }
+}
+

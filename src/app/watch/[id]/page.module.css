@@ -1,0 +1,399 @@
+.container {
+  display: flex;
+  padding: 24px;
+  gap: 24px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.mainContent {
+  flex: 1;
+  max-width: calc(100% - 424px); /* 400px sidebar + 24px gap */
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+  .mainContent {
+    max-width: 100%;
+  }
+}
+
+.videoPlayer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.videoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.playIcon:hover {
+  opacity: 1;
+}
+
+.controls {
+  padding: 0 12px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  margin-top: auto;
+}
+
+.progressBar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 12px;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progressBar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 30%;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
+.controlsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.leftControls, .rightControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.time {
+  font-size: 13px;
+  margin-left: 8px;
+}
+
+.videoInfo {
+  padding-bottom: 24px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.primaryInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.channelInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.channelDetails {
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+}
+
+.channelName {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.subCount {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.subscribeButton {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.subscribeButton:hover {
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionGroup {
+  display: flex;
+  background-color: var(--bg-secondary);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover, .actionButtonSecondary:hover {
+  background-color: var(--bg-hover);
+}
+
+.separator {
+  width: 1px;
+  background-color: var(--border-color);
+  margin: 8px 0;
+}
+
+.actionButtonSecondary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 20px;
+  transition: background-color 0.2s;
+}
+
+.descriptionBox {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.descriptionBox:hover {
+  background-color: var(--bg-hover);
+}
+
+.descriptionStats {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.descriptionText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.commentsHeader {
+  margin-bottom: 24px;
+}
+
+.commentsHeader h3 {
+  font-size: 20px;
+}
+
+.comment {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.commentAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.commentContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.commentName {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.commentTime {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.commentText {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.commentActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.sidebarRelated {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .sidebarRelated {
+    width: 100%;
+  }
+}
+
+.relatedVideo {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.relatedThumbnailWrapper {
+  position: relative;
+  width: 168px;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.relatedThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.relatedVideo:hover .relatedThumbnail {
+  transform: scale(1.05);
+}
+
+.relatedDuration {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.relatedDetails {
+  display: flex;
+  flex-direction: column;
+  padding-right: 24px;
+}
+
+.relatedTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.relatedChannel, .relatedStats {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.relatedChannel {
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0;
+    gap: 0;
+  }
+  .videoPlayer {
+    border-radius: 0;
+    margin-bottom: 12px;
+  }
+  .videoInfo {
+    padding: 0 16px 24px 16px;
+  }
+  .sidebarRelated {
+    padding: 0 16px 24px 16px;
+  }
+  .relatedThumbnailWrapper {
+    width: 140px;
+  }
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .primaryInfo {
+    gap: 12px;
+  }
+}
