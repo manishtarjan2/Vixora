@@ -1,37 +1,100 @@
+import Link from 'next/link';
+import { mockVideos } from '@/lib/mockData';
+import { db } from '@/lib/db';
 import styles from './page.module.css';
 
-export default function WatchPage({ params }: { params: { id: string } }) {
-  // Using a mock video ID for the iframe or a placeholder if we don't want actual youtube embeds.
-  // We'll use a placeholder div that looks like a video player.
+export default async function WatchPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  // 1. Find video details (either from mock data or database)
+  const mockVideo = mockVideos.find(v => v.id === id);
+  let videoDetails = mockVideo ? {
+    id: mockVideo.id,
+    title: mockVideo.title,
+    channelName: mockVideo.channelName,
+    views: mockVideo.views.toLocaleString(),
+    createdAt: mockVideo.createdAt,
+    description: "In this video we watch a premium YouTube clone in action. Beautifully built and styled.",
+    videoUrl: "", // mock player doesn't need videoUrl since it uses a placeholder
+    avatarName: mockVideo.channelName.substring(0, 2).toUpperCase(),
+  } : null;
+
+  if (!videoDetails) {
+    // Try to find it in the DB
+    try {
+      const dbVideo = await db.video.findUnique({
+        where: { id },
+        include: { user: true }
+      });
+      if (dbVideo) {
+        videoDetails = {
+          id: dbVideo.id,
+          title: dbVideo.title,
+          channelName: dbVideo.user.name || "Anonymous Creator",
+          views: dbVideo.views.toLocaleString(),
+          createdAt: dbVideo.createdAt.toLocaleDateString(),
+          description: dbVideo.description || "No description provided.",
+          videoUrl: dbVideo.videoUrl,
+          avatarName: (dbVideo.user.name || "AC").substring(0, 2).toUpperCase(),
+        };
+      }
+    } catch (e) {
+      console.error("Error fetching db video:", e);
+    }
+  }
+
+  // Fallback if not found anywhere
+  if (!videoDetails) {
+    videoDetails = {
+      id: "notfound",
+      title: "Video Not Found",
+      channelName: "Unknown Creator",
+      views: "0",
+      createdAt: "Unknown date",
+      description: "This video does not exist.",
+      videoUrl: "",
+      avatarName: "??",
+    };
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.mainContent}>
         <div className={styles.videoPlayer}>
-          <div className={styles.videoPlaceholder}>
-            <svg viewBox="0 0 24 24" width="64" height="64" className={styles.playIcon}><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>
-            <div className={styles.controls}>
-              <div className={styles.progressBar}></div>
-              <div className={styles.controlsRow}>
-                <div className={styles.leftControls}>
-                  <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>
-                  <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
-                  <span className={styles.time}>1:23 / 10:00</span>
-                </div>
-                <div className={styles.rightControls}>
-                  <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg>
+          {videoDetails.videoUrl ? (
+            <video 
+              src={videoDetails.videoUrl} 
+              controls 
+              autoPlay
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
+          ) : (
+            <div className={styles.videoPlaceholder}>
+              <svg viewBox="0 0 24 24" width="64" height="64" className={styles.playIcon}><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>
+              <div className={styles.controls}>
+                <div className={styles.progressBar}></div>
+                <div className={styles.controlsRow}>
+                  <div className={styles.leftControls}>
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M8 5v14l11-7z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                    <span className={styles.time}>1:23 / 10:00</span>
+                  </div>
+                  <div className={styles.rightControls}>
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         
         <div className={styles.videoInfo}>
-          <h1 className={styles.title}>Building a Premium YouTube Clone from Scratch (Next.js, TypeScript)</h1>
+          <h1 className={styles.title}>{videoDetails.title}</h1>
           <div className={styles.primaryInfo}>
             <div className={styles.channelInfo}>
-              <img src="https://ui-avatars.com/api/?name=AC&background=random" alt="Channel Avatar" className={styles.avatar} />
+              <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(videoDetails.avatarName)}&background=random`} alt="Channel Avatar" className={styles.avatar} />
               <div className={styles.channelDetails}>
-                <div className={styles.channelName}>Antigravity Code</div>
+                <div className={styles.channelName}>{videoDetails.channelName}</div>
                 <div className={styles.subCount}>1.5M subscribers</div>
               </div>
               <button className={styles.subscribeButton}>Subscribe</button>
@@ -55,12 +118,9 @@ export default function WatchPage({ params }: { params: { id: string } }) {
           </div>
           
           <div className={styles.descriptionBox}>
-            <div className={styles.descriptionStats}>1.2M views • 2 days ago</div>
+            <div className={styles.descriptionStats}>{videoDetails.views} views • {videoDetails.createdAt}</div>
             <p className={styles.descriptionText}>
-              In this video we build a fully functioning YouTube clone. 
-              We'll be using Next.js for the framework, and pure CSS for styling to make it look premium and modern.
-              <br/><br/>
-              Don't forget to like and subscribe!
+              {videoDetails.description}
             </p>
           </div>
           
@@ -68,7 +128,6 @@ export default function WatchPage({ params }: { params: { id: string } }) {
             <div className={styles.commentsHeader}>
               <h3>1,429 Comments</h3>
             </div>
-            {/* Simple mock comment */}
             <div className={styles.comment}>
               <img src="https://ui-avatars.com/api/?name=U&background=random" alt="User Avatar" className={styles.commentAvatar} />
               <div className={styles.commentContent}>
@@ -92,19 +151,18 @@ export default function WatchPage({ params }: { params: { id: string } }) {
       </div>
       
       <div className={styles.sidebarRelated}>
-        {/* Mock related videos */}
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div key={item} className={styles.relatedVideo}>
+        {mockVideos.filter(v => v.id !== videoDetails.id).map((video) => (
+          <Link key={video.id} href={`/watch/${video.id}`} className={styles.relatedVideo}>
             <div className={styles.relatedThumbnailWrapper}>
-              <img src={`https://images.unsplash.com/photo-1542831371-29b0f74f971${item}?q=80&w=300&auto=format&fit=crop`} alt="Thumbnail" className={styles.relatedThumbnail} />
-              <span className={styles.relatedDuration}>12:34</span>
+              <img src={video.thumbnailUrl} alt={video.title} className={styles.relatedThumbnail} />
+              <span className={styles.relatedDuration}>{video.duration}</span>
             </div>
             <div className={styles.relatedDetails}>
-              <div className={styles.relatedTitle}>Building more features for the clone app</div>
-              <div className={styles.relatedChannel}>Code Master</div>
-              <div className={styles.relatedStats}>120K views • 2 weeks ago</div>
+              <div className={styles.relatedTitle}>{video.title}</div>
+              <div className={styles.relatedChannel}>{video.channelName}</div>
+              <div className={styles.relatedStats}>{video.views.toLocaleString()} views • {video.createdAt}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

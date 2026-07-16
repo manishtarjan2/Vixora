@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function LoginPage() {
@@ -58,7 +57,7 @@ export default function LoginPage() {
         } else {
           setError("Something went wrong");
         }
-      } catch (error) {
+      } catch {
         setError("Something went wrong");
       } finally {
         setIsLoading(false);

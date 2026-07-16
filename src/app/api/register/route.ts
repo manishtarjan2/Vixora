@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
@@ -24,7 +23,7 @@ export async function POST(
     });
 
     return Response.json(user);
-  } catch (error: any) {
+  } catch (error) {
     console.error(error, "REGISTRATION_ERROR");
     return new Response("Internal Error", { status: 500 });
   }

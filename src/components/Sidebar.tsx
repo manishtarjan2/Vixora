@@ -1,4 +1,7 @@
+"use client";
+
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import styles from './Sidebar.module.css';
 
 const mainLinks = [
@@ -32,16 +35,23 @@ interface SidebarProps {
   toggleSidebar: () => void;
 }
 
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({ isOpen }: SidebarProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category');
+
   return (
     <aside className={`${styles.sidebar} ${!isOpen ? styles.collapsed : ''}`}>
       <nav className={styles.navGroup}>
-        {mainLinks.map((link) => (
-          <Link key={link.text} href={link.href} className={`${styles.navItem} ${link.active ? styles.active : ''}`}>
-            <span className={styles.icon}>{link.icon}</span>
-            <span className={styles.text}>{link.text}</span>
-          </Link>
-        ))}
+        {mainLinks.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link key={link.text} href={link.href} className={`${styles.navItem} ${isActive ? styles.active : ''}`}>
+              <span className={styles.icon}>{link.icon}</span>
+              <span className={styles.text}>{link.text}</span>
+            </Link>
+          );
+        })}
       </nav>
 
       <div className={styles.divider}></div>
@@ -71,12 +81,16 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <h3>Categories</h3>
         </div>
         <div className={styles.navGroup}>
-          {categories.map((category) => (
-            <Link key={category.text} href={category.href} className={styles.navItem}>
-              <span className={styles.icon}>{category.icon}</span>
-              <span className={styles.text}>{category.text}</span>
-            </Link>
-          ))}
+          {categories.map((category) => {
+            const categoryValue = new URLSearchParams(category.href.split('?')[1]).get('category');
+            const isActive = pathname === '/' && currentCategory === categoryValue;
+            return (
+              <Link key={category.text} href={category.href} className={`${styles.navItem} ${isActive ? styles.active : ''}`}>
+                <span className={styles.icon}>{category.icon}</span>
+                <span className={styles.text}>{category.text}</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
 

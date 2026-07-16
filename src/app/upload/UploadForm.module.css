@@ -1,0 +1,193 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: 24px;
+}
+
+.uploadCard {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.dropZone {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 64px 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dropZone:hover, .dropZone.dragActive {
+  border-color: var(--accent-red);
+  background-color: var(--accent-red-faded);
+}
+
+.uploadIcon {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  transition: color 0.3s ease;
+}
+
+.dropZone:hover .uploadIcon, .dropZone.dragActive .uploadIcon {
+  color: var(--accent-red);
+}
+
+.dropText {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.dropSubtext {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.input, .textarea {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--accent-red);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submitButton {
+  background-color: var(--accent-red);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--accent-red-hover);
+}
+
+.submitButton:disabled {
+  background-color: #333;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Progress bar styles */
+.progressContainer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--accent-red);
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.progressSubtext {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Success State */
+.successContainer {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.successIcon {
+  color: #4CAF50;
+  margin-bottom: 24px;
+}
+
+.successTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.successSubtext {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.homeButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.homeButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}

@@ -7,6 +7,7 @@ export const mockVideos = [
     views: 45000000,
     duration: '2:36:45',
     createdAt: '2 weeks ago',
+    category: 'movies',
   },
   {
     id: '2',
@@ -16,6 +17,7 @@ export const mockVideos = [
     views: 32000000,
     duration: '2:48:00',
     createdAt: '1 month ago',
+    category: 'movies',
   },
   {
     id: '3',
@@ -25,6 +27,7 @@ export const mockVideos = [
     views: 12000000,
     duration: '9:45',
     createdAt: '1 week ago',
+    category: 'movies',
   },
   {
     id: '4',
@@ -34,6 +37,7 @@ export const mockVideos = [
     views: 500000,
     duration: '1:12',
     createdAt: '3 days ago',
+    category: 'gaming',
   },
   {
     id: '5',
@@ -43,6 +47,7 @@ export const mockVideos = [
     views: 89000000,
     duration: '3:45',
     createdAt: '3 months ago',
+    category: 'music',
   },
   {
     id: '6',
@@ -52,6 +57,7 @@ export const mockVideos = [
     views: 54000,
     duration: 'LIVE',
     createdAt: 'Started 2 years ago',
+    category: 'music',
   },
   {
     id: '7',
@@ -61,6 +67,7 @@ export const mockVideos = [
     views: 125000,
     duration: '4:15:30',
     createdAt: '5 days ago',
+    category: 'trending',
   },
   {
     id: '8',
@@ -70,5 +77,6 @@ export const mockVideos = [
     views: 8500000,
     duration: '22:14',
     createdAt: '2 months ago',
+    category: 'trending',
   },
 ];

@@ -13,8 +13,14 @@ interface Video {
 }
 
 export default function VideoCard({ video }: { video: Video }) {
-  // Simulate a random progress for demo purposes to match the Netflix "Continue Watching" look
-  const progress = React.useMemo(() => Math.floor(Math.random() * 100), []);
+  // Simulate a stable progress for demo purposes based on the video ID
+  const progress = React.useMemo(() => {
+    let hash = 0;
+    for (let i = 0; i < video.id.length; i++) {
+      hash = video.id.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash % 100);
+  }, [video.id]);
   const showProgress = progress > 10;
 
   return (
