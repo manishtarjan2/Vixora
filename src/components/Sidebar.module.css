@@ -1,96 +1,296 @@
 .sidebar {
-  width: 240px;
-  height: calc(100vh - 56px);
-  background-color: var(--bg-color);
-  overflow-y: auto;
-  position: sticky;
-  top: 56px;
+  width: 260px;
+  min-width: 260px;
+  height: 100%;
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
+  padding: 24px 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.3s ease, min-width 0.3s ease;
 }
 
-/* Custom Scrollbar for sidebar */
-.sidebar:hover::-webkit-scrollbar-thumb {
-  background: var(--bg-hover); 
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  border-right: none;
+  opacity: 0;
+  pointer-events: none;
 }
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
 .sidebar::-webkit-scrollbar-thumb {
-  background: transparent; 
+  background-color: transparent;
+  border-radius: 4px;
 }
 
-.section {
-  padding: 12px 12px;
+.sidebar:hover::-webkit-scrollbar-thumb {
+  background-color: var(--hover-color);
 }
 
-.divider {
-  border-bottom: 1px solid var(--border-color);
-  margin: 0 0;
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding: 0 8px;
+}
+
+.collapsed .logoContainer {
+  justify-content: center;
+  padding: 0;
+}
+
+.hamburgerBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.hamburgerBtn:hover {
+  background-color: var(--hover-color);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.logoText {
+  color: #FFFFFF;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  height: 40px;
-  border-radius: 10px;
-  transition: background-color 0.2s ease;
-  color: var(--text-primary);
+  gap: 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-secondary);
   text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.collapsed .navItem {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.collapsed .navItem .text {
+  display: none;
 }
 
 .navItem:hover {
-  background-color: var(--bg-hover);
+  background-color: var(--hover-color);
+  color: var(--text-primary);
 }
 
 .navItem.active {
-  background-color: var(--bg-hover);
-  font-weight: 500;
+  background: linear-gradient(90deg, #8A050C 0%, #4A0A10 100%);
+  color: var(--text-primary);
 }
 
-.sectionHeader {
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.sectionHeader:hover {
-  background-color: transparent;
+.navItem.active .icon {
+  color: var(--text-primary);
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
-.label {
+.navItem:hover .icon {
+  color: var(--text-primary);
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 20px 0;
+  width: 100%;
+}
+
+.collapsed .divider {
+  margin: 10px 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsed .section {
+  display: none;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  margin-bottom: 12px;
+}
+
+.sectionHeader h3 {
+  color: var(--text-primary);
   font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: 600;
 }
 
-.footer {
-  padding: 16px 24px;
+.seeAll {
   color: var(--text-secondary);
   font-size: 12px;
-  line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.seeAll:hover {
+  color: var(--text-primary);
+}
+
+.subList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.subItem:hover {
+  background-color: var(--hover-color);
+}
+
+.subInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.subAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.subInfo .text {
+  color: var(--text-secondary);
+  font-size: 13px;
   font-weight: 500;
+  transition: color 0.2s;
 }
 
-.footer p {
-  margin-bottom: 8px;
+.subItem:hover .text {
+  color: var(--text-primary);
 }
 
-.copyright {
-  font-weight: 400;
-  color: #717171;
-  margin-top: 16px;
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-red);
 }
 
-@media (max-width: 768px) {
+.premiumCard {
+  margin-top: 32px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.collapsed .premiumCard {
+  display: none;
+}
+
+.premiumHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.premiumHeader h4 {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.premiumCard p {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.premiumButton {
+  background-color: var(--accent-red);
+  color: #FFF;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 4px;
+}
+
+.premiumButton:hover {
+  background-color: var(--accent-red-hover);
+}
+
+@media (max-width: 1024px) {
   .sidebar {
-    display: none;
+    position: fixed;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.collapsed {
+    transform: translateX(-100%);
   }
 }

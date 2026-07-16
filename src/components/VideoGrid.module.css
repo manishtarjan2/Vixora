@@ -1,11 +1,9 @@
-.homeContainer {
+.gridContainer {
   width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
 }
 
 @media (max-width: 1024px) {
-  .homeContainer {
+  .gridContainer {
     padding-bottom: 80px;
   }
 }

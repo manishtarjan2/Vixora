@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
 import { Providers } from "@/components/Providers";
+import AppLayout from "@/components/AppLayout";
 
 export const metadata: Metadata = {
-  title: "YouTube Clone",
-  description: "A premium YouTube clone built with Next.js",
+  title: "Vixora - Premium YouTube Clone",
+  description: "A premium video platform",
 };
 
 export default function RootLayout({
@@ -18,13 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Header />
-          <div style={{ display: 'flex' }}>
-            <Sidebar />
-            <main style={{ flex: 1, overflowX: 'hidden' }}>
-              {children}
-            </main>
-          </div>
+          <AppLayout>
+            {children}
+          </AppLayout>
         </Providers>
       </body>
     </html>

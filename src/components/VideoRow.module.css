@@ -1,0 +1,65 @@
+.rowContainer {
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.rowHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accentLine {
+  width: 4px;
+  height: 20px;
+  background-color: var(--accent-red);
+  border-radius: 4px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.seeAll {
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.seeAll:hover {
+  color: var(--text-primary);
+}
+
+.rowContent {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.rowContent::-webkit-scrollbar {
+  height: 6px;
+}
+
+.rowContent::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.rowContainer:hover .rowContent::-webkit-scrollbar-thumb {
+  background-color: var(--hover-color);
+}
